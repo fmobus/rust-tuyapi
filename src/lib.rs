@@ -101,6 +101,13 @@ impl Payload {
             dps,
         })
     }
+
+    pub fn dps(&self) -> Option<HashMap<String, serde_json::Value>> {
+        match self {
+            Payload::Struct(payload) => payload.dps.clone(),
+            Payload::String(value) => serde_json::from_str(value).unwrap()
+        }
+    }
 }
 
 impl Display for Payload {

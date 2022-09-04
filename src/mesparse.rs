@@ -2,6 +2,7 @@
 //! The message parser is the low level API which takes care of encoding and decoding of Payloads.
 //! The normal user should not need to interact with this directly to communicate with Tuya
 //! devices, but rather create an instance of the TuyaDevice struct.
+use std::collections::HashMap;
 use crate::cipher::TuyaCipher;
 use crate::crc::crc;
 use crate::error::ErrorKind;
@@ -141,6 +142,9 @@ impl Message {
             seq_nr,
             ret_code: None,
         }
+    }
+    pub fn dps(&self) -> Option<HashMap<String, serde_json::Value>> {
+        self.payload.dps()
     }
 }
 
